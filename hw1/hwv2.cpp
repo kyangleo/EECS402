@@ -42,6 +42,7 @@ int main()
   char angleType;
   char typeDegree;
   char typeRadian;
+//check logic  
   bool isSuccess; //indicates whether the whole process goes successfully
   double angleRawVal;
   double angleStdVal;
@@ -145,7 +146,7 @@ bool computeFactorial(const int inVal, int& outFactorial)
   int minNumFactorial;
   int maxNumFactorial;
 
-  minNumFactorial = 0;
+  minNumFactorial = 1;
   maxNumFactorial = 12;
 
   if (inVal < minNumFactorial || inVal > maxNumFactorial)
@@ -162,10 +163,12 @@ bool computeFactorial(const int inVal, int& outFactorial)
     return true;
   }
 }
-bool approximateSine(const double angleRad, const int numTerms,
+
+bool approximateSine(const double angleRad, const int numTerms, 
                      double& outSineVal)
 {
   bool doSuccess;
+  double angleRadRaw;
   double angleRadStd;
   double baseValMinus;
   double minusPow;
@@ -184,34 +187,44 @@ bool approximateSine(const double angleRad, const int numTerms,
   {
     cout << "ERROR: Invalid input - must respond with value between "
          << "1 and 5!" << endl;
+
     doSuccess = false;
   }
   else
   {
     sumSineVal = 0 ;
     numAddTerms = 0;
-    angleRadStd = angleRad;
+    angleRadRaw = angleRad;
     baseValMinus = -1;
 
-    for (; angleRadStd > PI_VALUE; )
+    for (int i = 0; angleRadRaw >= 2 * PI_VALUE; i++)
     {
-        angleRadStd -= 2 * PI_VALUE;
+      angleRadRaw -= 2 * PI_VALUE;
+    } 
+    for (int i = 0; angleRadRaw <= -2 * PI_VALUE; i++)
+    {
+      angleRadRaw += 2 * PI_VALUE;
     }
-    for (; angleRadStd <= -PI_VALUE; )
+   
+    if (angleRadRaw >= PI_VALUE)
     {
-        angleRadStd += 2 * PI_VALUE;
+      angleRadStd = angleRadRaw - 2 * PI_VALUE;
+    }
+    if (angleRadRaw <= -PI_VALUE)
+    {
+      angleRadStd = angleRadRaw + 2 * PI_VALUE;
     }
 
-    for (int i = 0; i < numTerms &&
+    for (int i = 0; i <= numTerms - 1 &&
          toThePower(baseValMinus, i, minusPow) &&
-         toThePower(angleRadStd, 2 * i + 1, angleRadPow) &&
-         computeFactorial(2 * i + 1, coefFactorial);
+         toThePower(angleRadStd, 2*i + 1, angleRadPow) &&
+         computeFactorial(2*i + 1, coefFactorial);
          i++)
     {
       sumSineVal += minusPow * angleRadPow / coefFactorial;
       numAddTerms += 1;
     }
-
+    
     if (numAddTerms < numTerms)
     {
       doSuccess = false;
@@ -221,5 +234,13 @@ bool approximateSine(const double angleRad, const int numTerms,
       outSineVal = sumSineVal;
     }
   }
-  return doSuccess;
+  
+  if (!doSuccess)
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
