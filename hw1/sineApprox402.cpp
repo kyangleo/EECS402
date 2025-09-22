@@ -96,10 +96,17 @@ int main()
       cout << "Here are results for other numbers of terms:" << endl;
       for (int i = minNumTerm; i <= maxNumTerm; i++)
       {
-        if (i != numTerm && approximateSine(angleStdVal, i, approxSinVal))
+        if (i != numTerm)
         {
-          cout << "  # terms: " << i << " result: " << approxSinVal;
-          cout << endl;
+          double otherResult;
+          bool otherSuccess;
+
+          otherSuccess = approximateSine(angleStdVal, i, otherResult);
+          if (otherSuccess)
+          {
+            cout << "  # terms: " << i << " result: " << otherResult;
+            cout << endl;
+          }
         }
       }
     }
