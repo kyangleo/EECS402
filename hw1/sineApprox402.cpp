@@ -56,12 +56,14 @@ int main()
   minNumTerm = 1;
   maxNumTerm = 5;
 
-  cout << "Would you like to enter angle in degrees (d) or radians (r)? ";
+  cout << "Would you like to enter angle in degrees (" << typeDegree 
+       << ") or radians (" << typeRadian << ")? ";
   cin >> angleType;
 
   if (angleType != typeDegree && angleType != typeRadian)
   {
-    cout << "ERROR: Invalid input - must respond with either d or r!";
+    cout << "ERROR: Invalid input - must respond with either " << typeDegree
+         << " or " << typeRadian << "!";
     cout << endl;
     isSuccess = false;
   }
@@ -70,7 +72,8 @@ int main()
     cout << "Enter the angle: ";
     cin >> angleRawVal;
 
-    cout << "How many terms to use in the series (1 to 5 inclusive): ";
+    cout << "How many terms to use in the series (" << minNumTerm
+         << " to " << maxNumTerm << " inclusive): ";
     cin >> numTerm;
 
     if (angleType == typeDegree)
@@ -124,7 +127,10 @@ double degreesToRadians(const double angleDeg)
 bool toThePower(const double baseVal, const int exponentVal, 
                 double& outResult)
 {
-  if (exponentVal < 0)
+  int minVal;
+
+  minVal = 0;
+  if (exponentVal < minVal)
   {
     return false;
   }
@@ -183,7 +189,7 @@ bool approximateSine(const double angleRad, const int numTerms,
   if (numTerms < minNumTerm || numTerms > maxNumTerm)
   {
     cout << "ERROR: Invalid input - must respond with value between "
-         << "1 and 5!" << endl;
+         << minNumTerm << " and " << maxNumTerm << "!" << endl;
     doSuccess = false;
   }
   else
@@ -201,6 +207,8 @@ bool approximateSine(const double angleRad, const int numTerms,
     {
         angleRadStd += 2 * PI_VALUE;
     }
+
+    
 
     for (int i = 0; i < numTerms &&
          toThePower(baseValMinus, i, minusPow) &&
