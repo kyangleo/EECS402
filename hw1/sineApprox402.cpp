@@ -193,7 +193,7 @@ bool approximateSine(const double angleRad, const int numTerms,
     angleRadStd -= 2 * PI_VALUE;
   }
 
-  while (angleRadStd <= -PI_VALUE)
+  while (angleRadStd < -PI_VALUE)
   {
     angleRadStd += 2 * PI_VALUE;
   }
