@@ -171,63 +171,65 @@ bool computeFactorial(const int inVal, int& outFactorial)
 bool approximateSine(const double angleRad, const int numTerms,
                      double& outSineVal)
 {
-  bool doSuccess;
   double angleRadStd;
-  double baseValMinus;
-  double minusPow;
-  double angleRadPow;
-  int coefFactorial;
-  int numAddTerms;
-  double sumSineVal;
   int minNumTerm;
   int maxNumTerm;
 
   minNumTerm = 1;
   maxNumTerm = 5;
-  doSuccess = true;
 
+  // Input Validation
   if (numTerms < minNumTerm || numTerms > maxNumTerm)
   {
     cout << "ERROR: Invalid input - must respond with value between "
          << minNumTerm << " and " << maxNumTerm << "!" << endl;
-    doSuccess = false;
+    return false;
   }
-  else
+  
+  // Angle Normalization 
+  angleRadStd = angleRad;
+  while (angleRadStd > PI_VALUE)
   {
-    sumSineVal = 0 ;
-    numAddTerms = 0;
-    angleRadStd = angleRad;
-    baseValMinus = -1;
+    angleRadStd -= 2 * PI_VALUE;
+  }
 
-    for (; angleRadStd > PI_VALUE; )
-    {
-        angleRadStd -= 2 * PI_VALUE;
-    }
-    for (; angleRadStd <= -PI_VALUE; )
-    {
-        angleRadStd += 2 * PI_VALUE;
-    }
+  while (angleRadStd <= -PI_VALUE)
+  {
+    angleRadStd += 2 * PI_VALUE;
+  }
 
-    
+  // Calculation Sine Value
+  outSineVal = 0.0;
 
-    for (int i = 0; i < numTerms &&
-         toThePower(baseValMinus, i, minusPow) &&
-         toThePower(angleRadStd, 2 * i + 1, angleRadPow) &&
-         computeFactorial(2 * i + 1, coefFactorial);
-         i++)
-    {
-      sumSineVal += minusPow * angleRadPow / coefFactorial;
-      numAddTerms += 1;
-    }
+  for (int i = 0; i < numTerms; i++)
+  {
+    double minusPow;
+    double angleRadPow;
+    double minusBaseVal;
+    int coefFactorial;
+    int angleExpVal;
+    int endFactorialVal;
+    bool doMinusPow;
+    bool doAngleRadPow;
+    bool doCoefFactorial;
 
-    if (numAddTerms < numTerms)
+    minusBaseVal = -1.0;
+    angleExpVal = 2 * i + 1;
+    endFactorialVal = 2 * i + 1;
+    doMinusPow = toThePower(minusBaseVal, i, minusPow);
+    doAngleRadPow = toThePower(angleRadStd, angleExpVal, angleRadPow);
+    doCoefFactorial = computeFactorial(endFactorialVal, coefFactorial);
+  
+    if (doMinusPow && doAngleRadPow && doCoefFactorial)
     {
-      doSuccess = false;
+      outSineVal += minusPow * angleRadPow / coefFactorial;
     }
     else
     {
-      outSineVal = sumSineVal;
+      return false;
     }
   }
-  return doSuccess;
+
+  // If do successfully
+  return true;
 }

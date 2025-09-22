@@ -1,11 +1,11 @@
-Script started on 2025-09-16 16:09:24-04:00 [TERM="xterm-256color" TTY="/dev/pts/8" COLUMNS="162" LINES="49"]
-[?2004hbash-5.1$ g++ -Wall -sta[Kd=c++98 sineApprox402.cpp -o sineApprox402.exe
+Script started on 2025-09-22 15:16:48-04:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="79" LINES="46"]
+[?2004hbash-5.1$ g++ -Wall -std=c++98 sineApprox402.e[Kcpp -o sineApprox402.exe
 [?2004l[?2004hbash-5.1$ valgrind --leak-check=full ./sineApprox402.exe
-[?2004l==265420== Memcheck, a memory error detector
-==265420== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==265420== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
-==265420== Command: ./sineApprox402.exe
-==265420== 
+[?2004l==3738184== Memcheck, a memory error detector
+==3738184== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==3738184== Using Valgrind-3.24.0 and LibVEX; rerun with -h for copyright info
+==3738184== Command: ./sineApprox402.exe
+==3738184== 
 Would you like to enter angle in degrees (d) or radians (r)? d
 Enter the angle: 58
 How many terms to use in the series (1 to 5 inclusive): 4
@@ -16,16 +16,16 @@ Here are results for other numbers of terms:
   # terms: 2 result: 0.839403
   # terms: 3 result: 0.848261
   # terms: 5 result: 0.848048
-==265420== 
-==265420== HEAP SUMMARY:
-==265420==     in use at exit: 0 bytes in 0 blocks
-==265420==   total heap usage: 4 allocs, 4 frees, 74,809 bytes allocated
-==265420== 
-==265420== All heap blocks were freed -- no leaks are possible
-==265420== 
-==265420== For lists of detected and suppressed errors, rerun with: -s
-==265420== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==3738184== 
+==3738184== HEAP SUMMARY:
+==3738184==     in use at exit: 0 bytes in 0 blocks
+==3738184==   total heap usage: 4 allocs, 4 frees, 74,809 bytes allocated
+==3738184== 
+==3738184== All heap blocks were freed -- no leaks are possible
+==3738184== 
+==3738184== For lists of detected and suppressed errors, rerun with: -s
+==3738184== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 [?2004hbash-5.1$ exit
 [?2004lexit
 
-Script done on 2025-09-16 16:10:53-04:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2025-09-22 15:17:51-04:00 [COMMAND_EXIT_CODE="0"]
